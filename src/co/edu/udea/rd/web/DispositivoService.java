@@ -20,15 +20,37 @@ import co.edu.udea.rd.dto.Dispositivo;
 import co.edu.udea.rd.exception.MyException;
 import co.edu.udea.rd.web.dto.DispositivoWS;
 
+/**
+ * Clase para el manejo de los servicios web relacionados con un dispositivo dentro 
+ * la logica del negocio de el sistema.
+ * 
+ * @author Sergio Giraldo
+ */
+ 
 @Component
 @Path("Dispositivo")
 public class DispositivoService {
 
+	/**
+	 *  Inyección de dependencia del objeto que nos permitirá acceder a la lógica del negocio.
+	 */
 	@Autowired
 	DispositivoBL dispositivoBL;
 	
+	/**
+	 * Configuración del archivo .log que tendrá la información respecto al proyecto.
+	 */ 
 	Logger log = Logger.getLogger(this.getClass());
 
+	/**
+	 * Servicio encargado de guardar un nuevo Dispositivo en la lógica de nuestra aplicación.
+	 * 
+	 * @param idDispositivo identificador unico del dispositivo a guardar.
+	 * @param idTipoDispositivo identificador acerca de que tipo de dispositivo es.
+	 * @param disponibles se ingresa el numero de dispositivos nuevos de este tipo que se guardarán.
+	 * @return mensaje informativo acerca de la transacción a realizar.
+	 * @throws MyException.
+	 */ 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("registrar")
@@ -43,6 +65,15 @@ public class DispositivoService {
 		return "Dispositivo creado correctamente";
 	}
 
+	/**
+	 * Servicio encargado de actualizar la información de un dispositivo previamente almacenado en la BD.
+	 * 
+	 * @param idDispositivo nuevo id para el dispositivo.
+	 * @param idTipoDispositivo actualiza el nuevo tipo de dispositivo.
+	 * @param disponibles actualiza el stock disponible de dispositivos.
+	 * @return mensaje informativo sobre el proceso de la transaccion.
+	 * @throws MyException.
+	 */ 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("modificar")
@@ -56,7 +87,14 @@ public class DispositivoService {
 		}
 		return "Dispositivo modificado correctamente";
 	}
-
+	
+	/**
+	 * Servicio que esta encargada de obtener la lista de todos los dispositivos 
+	 * disponibles en la base de datos del sistema.
+	 * 
+	 * @return lista de todos los dispositivos almacenados en la BD.
+	 * @throws MyException. 
+	 */ 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("listar")
@@ -79,6 +117,13 @@ public class DispositivoService {
 		return lista;
 	}
 	
+	/**
+	 * Servicio encargado de eliminar un dispositivo de la BD del sistema.
+	 * 
+	 * @param idDispositivo identifica al dispositivo a eliminar.
+	 * @return mensaje informativo acerca del proceso de la transacción.
+	 * @throws MyException
+	 */ 
 	@DELETE
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("eliminar")
