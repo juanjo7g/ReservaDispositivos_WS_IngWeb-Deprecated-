@@ -15,15 +15,38 @@ import org.springframework.stereotype.Component;
 import co.edu.udea.rd.bl.PrestamoBL;
 import co.edu.udea.rd.exception.MyException;
 
+/**
+ * Clase encargada para el manejo de los sericios web de el prestamo dentro de nuestra 
+ * logica del negocio. 
+ * 
+ * @author Sergio Giraldo.
+ */
+ 
 @Component
 @Path("Prestamo")
 public class PrestamoService {
 
+	
+	/**
+	 * Inyección de dependencias que nos permite acceder a la logica del negocio de prestamo.
+	 */
 	@Autowired
 	PrestamoBL prestamoBL;
 	
+	/**
+	 * Configuracion del archivo .log que guardara los mensajes sumergientes del sistema.
+	 */
 	Logger log = Logger.getLogger(this.getClass());
 
+	/**
+	 * Servicio encargado de actualizar el estado de un prestamo.
+	 * 
+	 * @param username del usuario que solicita el prestamo.
+	 * @param idDispositivo que identifica cual será el dispositivo a prestar.
+	 * @param estado del dispositivo, es decir, si está disponible o no para el prestamo.
+	 * @retunr mensaje informativo acerca del proceso de la transaccion 
+	 * @throws MyException.
+	 */ 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("actualizarEstado")
@@ -37,6 +60,16 @@ public class PrestamoService {
 		return "Estado del prestamo modificado correctamente";
 	}
 
+	/**
+	 * Servicio encargado de solicitar el prestamo de un dispositivo.
+	 * 
+	 * @param idDispositivo que se solicita para el prestamo.
+	 * @param username del usuario que solicita el prestamo.
+	 * @param fechaInicialPrestamo fecha para al cual el usuario solicita un prestamo.
+	 * @param fechaFinalPrestamo fecha para la cual el usuario termina el rpestamo.
+	 * @return Mensaje informativo acerca del proceso de la transacción.
+	 * @trhows MyException
+	 */ 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("solicitar")
